@@ -1,0 +1,54 @@
+<html  ng-app="SChat">
+<head>
+  <meta charset="utf-8">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./chat.js"></script>
+</head>
+<body>
+  <div class="container" ng-controller="chat" ng-init="init()">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="row text-center"><h1>chat</h1></div>
+      </div>
+      <div class="row" ng-hide="isRegist">
+        <div class="col-xs-12">
+          <form class="form-inline" ng-submit="registUser()">
+            <label class="form-label" for="">名前</label>
+            <input class="form-control" ng-model="user.name" type="text" name="name">
+            <input class="form-control" type="submit">
+          </form>
+        </div>
+      </div>
+      <div class="row" ng-hide="!isRegist">
+        <div class="col-xs-4">
+              <h2>Users</h2>
+            <div ng-repeat="user in users">
+                  <p><span class="label label-info">{{user.id}}</span> {{user.name}}</p>
+              </div>
+        </div>
+        <div class="col-xs-8">
+          <h2>Texts</h2>
+            <div id="texts">
+              <ul class="list-unstyled">
+                <li ng-repeat="text in texts">
+                  <span class="label label-info">{{text.id}}</span>
+                  <span class="label label-success">{{getUserName(text.user_id)[0].name}}</span>
+                  <span class="label label-default">{{text.date}}</span>
+                  <span class="">{{text.text}}</span>
+                </li>
+              </ul>
+            </div>
+            <div id="chatUI">
+              <form ng-submit="sendChat()" class="form-inline">
+                  <label for="" class="control-label">文字文字
+                  <input class="form-control" ng-model="text" type="text" name="text"></label>
+                  <input class="btn btn-default" type="submit" value="送信">
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+</body>
+</html>

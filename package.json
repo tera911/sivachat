@@ -1,0 +1,11 @@
+{
+  "name": "sivachat",
+  "version": "1.0.0",
+  "description": "siva chat",
+  "author": "tera911",
+  "license": "ISC",
+	"devDependencies": {
+		"angular": "",
+		"bootstrap": ""
+	}
+}
