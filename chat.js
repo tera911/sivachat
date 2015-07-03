@@ -1,5 +1,5 @@
 var module = angular.module('SChat', []);
-var API_URI = 'http://153.120.128.141:3000';
+var API_URI = 'http://153.120.128.141';
 
 module.service('chatfunc', ['$http', function($http){
   this.getUsers = function(callback){
