@@ -3,13 +3,7 @@ var API_URI = 'http://153.120.128.141';
 
 module.service('chatfunc', ['$http', function($http){
   this.getUsers = function(callback){
-    $http({
-      url: API_URI + '/users',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'json'
-      }
-    }).success(function(data){
+    $http.get(API_URI + '/users').success(function(data){
       callback(data);
     }).error(function(){
       alert("何かがおかしいようです。");
@@ -34,11 +28,12 @@ module.service('chatfunc', ['$http', function($http){
       callback(data);
     });
   };
-}]);
 
-
-module.controller('users', ['$scope','chatfunc', function($scope, chatfunc){
-
+  this.getUser = function(index, callback){
+    $http.get(API_URI + '/users/' + index).success(function(data){
+      callback(data);
+    }).error(function(){callback(null)});
+  }
 }]);
 
 module.controller('chat', ['$scope', '$interval', 'chatfunc', function($scope, $interval, chatfunc){
@@ -50,6 +45,18 @@ module.controller('chat', ['$scope', '$interval', 'chatfunc', function($scope, $
     $scope.chatIndex = 1;
     $scope.chatLoad();
   };
+
+  $scope.loginUser = function(){
+    chatfunc.getUser($scope.user.name, function(data){
+      if(data != null){
+        $scope.user = data;
+        $scope.isRegist = true;
+        $scope.getUsers();
+      }else{
+        alert("Login失敗");
+      }
+    })
+  }
 
   $scope.getUsers = function(){
     chatfunc.getUsers(function(data){
